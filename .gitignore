@@ -1,0 +1,4 @@
+src\grounding_dino\GroundingDINO
+src\segment_anything\segment-anything
+DockerfileTemp
+venv
