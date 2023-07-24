@@ -3,4 +3,4 @@ src\segment_anything\segment-anything
 DockerfileTemp
 venv
 src\dependent_repos\
-src/dependent_repos/
+src/dependent_repos/*
