@@ -25,3 +25,5 @@ BOX_THRESHOLD = 0.25
 TEXT_THRESHOLD = 0.25
 
 grounding_dino_model = Model(model_config_path=GROUNDING_DINO_CONFIG_PATH, model_checkpoint_path=GROUNDING_DINO_CHECKPOINT_PATH)
+
+print("test")
