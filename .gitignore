@@ -1,3 +1,5 @@
 .venv
-src/dependent_repos
+src/dependent_repos/*
+!src/dependent_repos/.gitkeep
 DockerfileTemp
+src/test/*
