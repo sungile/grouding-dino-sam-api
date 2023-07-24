@@ -1,6 +1,3 @@
-src\grounding_dino\GroundingDINO
-src\segment_anything\segment-anything
+.venv
+src/dependent_repos
 DockerfileTemp
-venv
-src\dependent_repos\
-src/dependent_repos/*
