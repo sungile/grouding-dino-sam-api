@@ -1,5 +1,4 @@
 import cv2
-import supervision as sv
 import torch
 import os
 from typing import List
@@ -17,10 +16,11 @@ class ImageWithTags(BaseModel):
     tags: List[str]
 
 cwd = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(cwd)
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-GROUNDING_DINO_CONFIG_PATH = os.path.join(cwd, "GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py")
-GROUNDING_DINO_CHECKPOINT_PATH = os.path.join(cwd, "GroundingDINO/groundingdino/checkpoints/GroundingDINO_SwinT_OGC.pth")
+GROUNDING_DINO_CONFIG_PATH = os.path.join(parent_directory, "dependent_repos/GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py")
+GROUNDING_DINO_CHECKPOINT_PATH = os.path.join(parent_directory, "dependent_repos/GroundingDINO/weights/groundingdino_swint_ogc.pth")
 BOX_THRESHOLD = 0.25
 TEXT_THRESHOLD = 0.25
 
