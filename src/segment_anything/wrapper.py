@@ -2,9 +2,6 @@ SAM_ENCODER_VERSION = "vit_h"
 from segment_anything import sam_model_registry, SamPredictor
 from grounding_dino.main import grounding_dino_model, enhance_class_name
 import os
-
-
-
 import torch
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -36,6 +33,22 @@ detections = grounding_dino_model.predict_with_classes(
 
 print(detections)
 
+from segment_anything import SamPredictor
+import numpy as np
+
+
+def segment(sam_predictor: SamPredictor, image: np.ndarray, xyxy: np.ndarray) -> np.ndarray:
+    sam_predictor.set_image(image)
+    result_masks = []
+    for box in xyxy:
+        masks, scores, logits = sam_predictor.predict(
+            box=box,
+            multimask_output=True
+        )
+        index = np.argmax(scores)
+        result_masks.append(masks[index])
+    return np.array(result_masks)
+
 # annotate image with detections
 box_annotator = sv.BoxAnnotator()
 labels = [
@@ -43,5 +56,13 @@ labels = [
     for _, _, confidence, class_id, _
     in detections]
 annotated_frame = box_annotator.annotate(scene=image.copy(), detections=detections, labels=labels)
+import cv2
 
-print(annotated_frame)
+# convert detections to masks
+detections.mask = segment(
+    sam_predictor=sam_predictor,
+    image=cv2.cvtColor(image, cv2.COLOR_BGR2RGB),
+    xyxy=detections.xyxy
+)
+
+print(detections)
