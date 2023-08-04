@@ -9,6 +9,15 @@ import io
 from PIL import Image
 import numpy as np
 
+from typing import List
+
+def enhance_class_name(class_names: List[str]) -> List[str]:
+    return [
+        f"all {class_name}s"
+        for class_name
+        in class_names
+    ]
+
 app = FastAPI()
 
 class ImageWithTags(BaseModel):
